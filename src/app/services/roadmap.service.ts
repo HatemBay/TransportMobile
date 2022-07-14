@@ -16,32 +16,30 @@ import { AuthenticationService } from './authentication.service';
 @Injectable({
   providedIn: 'root',
 })
-export class PickupService {
-  baseUri = 'http://localhost:3000/api/pickups';
+export class RoadmapService {
+  baseUri = 'http://localhost:3000/api/roadmaps';
   headers = new HttpHeaders({
     Authorization: `Bearer ${localStorage.getItem('mean-token')!}`,
   }).set('Content-Type', 'application/json');
   constructor(private http: HttpClient, private auth: AuthenticationService) {}
 
-  // Get all pickups with all foreign info
-  getPickups(
+  // Get all roadmaps with all foreign info
+  getRoadmaps(
     driverId?: any,
-    isAllocated?: any,
-    isCollected?: any,
-    noPagination?: any,
+    isFinished?: any,
+    noLimit?: any,
     limit?: any,
     page?: any,
     sortBy?: any,
-    sort?: any
+    sort?: any,
+    search?: any,
+    startDate?: any,
+    endDate?: any,
+    driver?: any
   ): Observable<any> {
     const url = `${this.baseUri}`;
     var queryParams = new HttpParams();
-    if (isAllocated) {
-      queryParams = queryParams.append('isAllocated', isAllocated);
-    }
-    if (isCollected) {
-      queryParams = queryParams.append('isCollected', isCollected);
-    }
+
     queryParams = queryParams.append('limit', limit);
     queryParams = queryParams.append('page', page);
     if (sortBy) {
@@ -50,23 +48,32 @@ export class PickupService {
     if (sort) {
       queryParams = queryParams.append('sort', sort);
     }
-    if (noPagination) {
-      queryParams = queryParams.append('noPagination', noPagination);
+    if (search) {
+      queryParams = queryParams.append('search', search);
+    }
+    if (startDate) {
+      queryParams = queryParams.append('startDate', startDate);
+    }
+    if (endDate) {
+      queryParams = queryParams.append('endDate', endDate);
+    }
+    if (driver) {
+      queryParams = queryParams.append('driver', driver);
     }
     if (driverId) {
       queryParams = queryParams.append('driverId', driverId);
     }
+    if (isFinished) {
+      queryParams = queryParams.append('isFinished', isFinished);
+    }
+    if (noLimit) {
+      queryParams = queryParams.append('noLimit', noLimit);
+    }
     return this.http.get(url, { headers: this.headers, params: queryParams }); //if error try removing/adding header
   }
 
-  // Get pickup
-  getPickup(id: any): Observable<any> {
-    const url = `${this.baseUri}/${id}`;
-    return this.http.get(url, { headers: this.headers }); //if error try removing/adding header
-  }
-
-  // Update pickup
-  updatePickup(id: any, data: any): Observable<any> {
+  // Update roadmap
+  updateRoadmap(id: any, data: any): Observable<any> {
     const url = `${this.baseUri}/${id}`;
     return this.http
       .put(url, data, { headers: this.headers })

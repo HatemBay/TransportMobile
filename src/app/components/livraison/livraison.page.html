@@ -1,9 +1,33 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>livraison</ion-title>
+    <ion-title>Feuille de route</ion-title>
+    <!-- <h3 *ngIf="l != 0" slot="end" style="margin-right: 15px;">{{l}}</h3> -->
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content [fullscreen]="true" color="light" style="height: 93%">
+  <ion-refresher slot="fixed" (ionRefresh)="reload()">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <h3 style="text-align: center;" *ngIf="roadmapsCount === 0"> Pas des colis</h3>
+  <h2 style="text-align: center;" *ngIf="roadmapsCount !== 0">Total : {{roadmapsCount}}</h2>
+  <ion-card *ngFor="let pack of packages" style="margin-bottom: 7%;">
+    <div *ngIf="pack.etat === 'en cours'" routerLink="/detail/{{pack.CAB}}">
+      <ion-item>
+        <ion-icon name="cube" style="color: #fbab1d; margin: 0;" slot="start"></ion-icon>
+        <ion-label style="color: #fbab1d; font-size: 22px; text-align: center; margin: 0;"><b>{{pack.CAB}}</b>
+        </ion-label>
+      </ion-item>
 
+      <ion-card-content>
+        <h1 style="text-align: center; border: 2px solid #fbab1d; border-radius: 25px; margin-bottom: 4%; padding: 1%;">
+          {{pack.c_remboursement}} <sup>DT</sup></h1>
+        <h2><a style="color: #fbab1d; font-size: 20px;" href="tel:{{pack.telc}}">
+            <ion-icon name="call-outline"></ion-icon> {{pack.telc}}
+          </a></h2>
+        <ion-icon style="color: #fbab1d;" name="location-outline"></ion-icon> {{pack.adressec}}, {{pack.villec}},
+        <span style="color: #fbab1d;"><b>{{pack.delegationc}}</b></span>
+      </ion-card-content>
+    </div>
+  </ion-card>
 </ion-content>

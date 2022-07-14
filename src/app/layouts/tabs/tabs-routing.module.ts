@@ -80,7 +80,7 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'detail',
+        path: 'detail/:cab',
         loadChildren: () =>
           import('../../components/detail/detail.module').then(
             (m) => m.DetailPageModule
@@ -94,7 +94,7 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'livraison',
+        path: 'livraison/all',
         loadChildren: () =>
           import('../../components/livraison/livraison.module').then(
             (m) => m.LivraisonPageModule

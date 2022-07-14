@@ -31,7 +31,12 @@ export class CollecteDetailPage implements OnInit {
     const isAllocated = 'true';
     const isCollected = 'false';
     this.pickupService
-      .getPickups(isAllocated, isCollected, this.auth.getUserDetails()._id)
+      .getPickups(
+        this.auth.getUserDetails()._id,
+        isAllocated,
+        isCollected,
+        'true'
+      )
       .subscribe((data) => {
         this.pickups = data.data;
         console.log(data.data);
