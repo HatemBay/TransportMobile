@@ -1,3 +1,4 @@
+/* eslint-disable arrow-body-style */
 /* eslint-disable no-underscore-dangle */
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
@@ -13,6 +14,7 @@ import { RoadmapService } from 'src/app/services/roadmap.service';
 export class LivraisonPage implements OnInit {
   roadmaps: any[];
   packages: any[];
+  villes: any[];
   packageIds: any[];
   roadmapsCount: number;
   constructor(
@@ -21,12 +23,26 @@ export class LivraisonPage implements OnInit {
     private roadmapService: RoadmapService
   ) {}
 
-  async ngOnInit() {
+  async ngOnInit(villeId?: string) {
     await this.getAllPackageIds();
     this.packages = [];
     for await (const id of this.packageIds) {
       await this.getPackage(id);
     }
+    if (villeId) {
+      this.packages = this.packages.filter((item) => item.villeId === villeId);
+    } else {
+      const villes = this.packages.map((item) => {
+        return { ville: item.villec, id: item.villeId };
+      });
+
+      this.villes = [
+        ...new Map(villes.map((item) => [item.ville, item])).values(),
+      ];
+
+      console.log(this.villes);
+    }
+    this.roadmapsCount = this.packages.length;
   }
 
   async getAllPackageIds() {
@@ -40,7 +56,6 @@ export class LivraisonPage implements OnInit {
             .reduce((acc, curVal) => acc.concat(curVal.packages), [])
             .filter((item) => item.etat === 'en cours')
             .map((item) => item._id);
-          this.roadmapsCount = this.packageIds.length;
         })
       )
       .toPromise();
@@ -56,4 +71,8 @@ export class LivraisonPage implements OnInit {
       .toPromise();
   }
   reload() {}
+
+  onChange(value) {
+    this.ngOnInit(value);
+  }
 }

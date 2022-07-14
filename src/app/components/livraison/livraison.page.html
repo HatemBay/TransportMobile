@@ -9,6 +9,13 @@
   <ion-refresher slot="fixed" (ionRefresh)="reload()">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
+  <ion-list>
+    <ion-item>
+      <ion-select #C (ionChange)="onChange(C.value)" placeholder="Trier par ville">
+        <ion-select-option *ngFor="let ville of villes" value="{{ville.id}}">{{ville.ville}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
   <h3 style="text-align: center;" *ngIf="roadmapsCount === 0"> Pas des colis</h3>
   <h2 style="text-align: center;" *ngIf="roadmapsCount !== 0">Total : {{roadmapsCount}}</h2>
   <ion-card *ngFor="let pack of packages" style="margin-bottom: 7%;">
@@ -21,7 +28,7 @@
 
       <ion-card-content>
         <h1 style="text-align: center; border: 2px solid #fbab1d; border-radius: 25px; margin-bottom: 4%; padding: 1%;">
-          {{pack.c_remboursement}} <sup>DT</sup></h1>
+          {{pack.c_remboursement | number: '1.3-3'}} <sup>DT</sup></h1>
         <h2><a style="color: #fbab1d; font-size: 20px;" href="tel:{{pack.telc}}">
             <ion-icon name="call-outline"></ion-icon> {{pack.telc}}
           </a></h2>

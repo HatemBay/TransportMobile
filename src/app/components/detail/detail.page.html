@@ -24,7 +24,7 @@
       <h2 *ngIf="package.remarque !== ''">Remarque: {{package.remarque}}</h2>
       <h1
         style="text-align: center; border: 2px solid #3880ff; border-radius: 25px; margin: 7%; padding: 3%; color: #3880ff; font-weight: bold;">
-        {{package.c_remboursement}} <sup>DT</sup></h1>
+        {{package.c_remboursement | number: '1.3-3'}} <sup>DT</sup></h1>
       <span *ngIf="codeBarre2 === null">
         <ion-button size="large" (click)="changeState('livré (espèce)', package.CAB)" shape="round" expand="full">
           Livré
