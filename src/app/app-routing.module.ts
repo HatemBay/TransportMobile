@@ -18,8 +18,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: TabsPage,
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     children: [
       {
         path: '',
@@ -28,10 +27,10 @@ const routes: Routes = [
       },
     ],
   },
-  {
-    path: '**',
-    redirectTo: 'dashboard',
-  },
+  // {
+  //   path: '**',
+  //   redirectTo: 'home',
+  // },
 ];
 @NgModule({
   imports: [

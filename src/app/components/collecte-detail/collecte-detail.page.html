@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Pickup</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content style="background: none transparent;" [fullscreen]="true" color="light">
+  <ion-refresher slot="fixed" (ionRefresh)="reload($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <h3 style="text-align: center;" *ngIf="pickupsCount === 0"> Pas des pickup</h3>
+  <ion-card *ngFor="let pickup of pickups" (click)="details(pickup._id)" [routerLink]="['/']"
+    style="margin-bottom: 7%;">
+    <ion-item>
+      <ion-icon name="cube" color="primary" slot="start"></ion-icon>
+      <ion-label>{{pickup.nomf}}</ion-label>
+      <p slot="start" slot="end">{{pickup.c}}</p>
+    </ion-item>
+
+    <ion-card-content>
+      <h2><a href="tel:{{pickup.telf}}">
+          <ion-icon color="primary" name="call-outline"></ion-icon> {{pickup.telf}}
+        </a></h2>
+      <h2>
+        <ion-icon color="primary" name="location-outline"></ion-icon> {{pickup.villef}}, {{pickup.delegationf}}
+      </h2>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

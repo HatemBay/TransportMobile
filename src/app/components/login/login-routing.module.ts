@@ -6,7 +6,7 @@ import { LoginPage } from './login.page';
 const routes: Routes = [
   {
     path: 'login',
-    component: LoginPage
+    component: LoginPage,
   }
 ];
 

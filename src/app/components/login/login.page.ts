@@ -31,15 +31,15 @@ export class LoginPage implements OnInit {
   ngOnInit(): void {
     //redirection if user is authenticated
     if (this.auth.isLoggedIn()) {
-      this.router.navigate(['dashboard']);
+      this.router.navigate(['/home']);
     }
+    console.log('check');
     this.loginForm = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required],
     });
     this.errorMessage = '';
     this.loginForm.valueChanges.subscribe((data) => {
-      console.log('det');
       this.onLoginFormValueChange(data);
     });
   }
@@ -50,7 +50,7 @@ export class LoginPage implements OnInit {
     this.auth.login(this.credentials).subscribe(
       () => {
         console.log('success');
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/home']);
       },
       (err) => {
         this.hasError = true;
@@ -63,7 +63,6 @@ export class LoginPage implements OnInit {
 
   // save changes in credentials
   private onLoginFormValueChange(data: any): void {
-    console.log('d');
 
     this.credentials.email = data.email;
     this.credentials.password = data.password;

@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title *ngIf="!pickup.isCollected">Pickup</ion-title>
+    <ion-title *ngIf="pickup.isCollected" style="color: green;">Pickup (Collected)</ion-title>
+    <!-- <ion-icon name="qr-code" size="large" slot="end" (click)="scanner()" style="margin-right: 15px;"></ion-icon> -->
+    <ion-icon name="barcode" size="large" slot="end" (click)="scan()" style="margin-right: 15px;"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="light">
+  <h3 style="text-align: center;" *ngIf="pickup.nbPackages !== 0">Nombre: {{pickup.nbPackages}}</h3>
+  <ion-card *ngFor="let package of packages" id="div_{{package.CAB}}" style="margin-bottom: 7%;">
+    <ion-item>
+      <ion-icon name="cube" color="primary" slot="start"></ion-icon>
+      <ion-label>{{package.CAB}}</ion-label>
+      <ion-button *ngIf="package.etat !== 'ramassé par livreur'" (click)="updatePackage(package.CAB)" slot="end">
+        <ion-icon name="checkmark-done-circle-outline"></ion-icon>
+      </ion-button>
+      <ion-icon *ngIf="package.etat === 'ramassé par livreur'" name="checkmark-done-circle-outline"
+        style="color: green;"></ion-icon>
+
+    </ion-item>
+
+    <ion-card-content>
+      <h2><a href="tel:{{package.telc}}">
+          <ion-icon color="primary" name="call-outline"></ion-icon> {{package.telc}}
+        </a></h2>
+      <h2>
+        <ion-icon color="primary" name="location-outline"></ion-icon>
+        {{package.adressec}}, {{package.villec}}, <b>{{package.delegationc}}</b>
+      </h2>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

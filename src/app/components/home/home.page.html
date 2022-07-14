@@ -1,0 +1,56 @@
+<ion-content [fullscreen]="true" color="light">
+  <ion-card color="medium"
+    style="text-align: center; margin: 0 0 8% 0; padding: 5%; border-radius: 0 0 40px 40px !important; height: 150px;">
+    <h1> Bienvenu </h1>
+    <h3> {{userData.nom}} </h3>
+  </ion-card>
+  <ion-row class=" no-gutters">
+    <ion-col size="12">
+      <ion-card color="primary" style="text-align: center; margin: 4% 2%;" routerLink="/livraison/all">
+        <h3> 0 <br> Livraison </h3>
+      </ion-card>
+    </ion-col>
+    <ion-col size="12">
+      <ion-card color="primary" style="text-align: center; margin: 4% 2%;" [routerLink]="['/collecte-detail']">
+        <h3> {{pickupsCount}} <br> Pickup </h3>
+      </ion-card>
+    </ion-col>
+    <ion-col size="12" style="padding-bottom: 3%; margin: 2% 0;">
+      <h2 style="text-align: center; font-weight: 900;">Stastique</h2>
+    </ion-col>
+    <ion-col size="6">
+      <ion-card routerLink="/tabs/list-colis/1"
+        style="background-color: #099a0d !important; color: white; text-align: center; margin: 4% 2%; line-height: 63px; height: 93%;">
+        <h3 style="padding-top: 23%;">Livré<br>0</h3>
+      </ion-card>
+    </ion-col>
+    <ion-col size="6">
+      <ion-card routerLink="/tabs/list-colis/3"
+        style="background-color: #8e8e8e !important; color: white; text-align: center; margin: 4% 2%;">
+        <h3>Reporté<br>0</h3>
+      </ion-card>
+      <ion-card routerLink="/tabs/list-colis/4"
+        style="background-color: #fb501d !important; color: white; text-align: center; margin: 4% 2%;">
+        <h3>Annulé<br>0</h3>
+      </ion-card>
+    </ion-col>
+    <!-- <ion-col size="6">
+      <ion-card *ngIf="count1 > 0" style="margin: 2%;">
+        <ion-card-content style="background-color: #6777ef !important; color: white;">
+          <h2 style="position: absolute; top: 2%; right: 6%;">{{count1}}</h2>
+          <h3>Espèce</h3>
+          <h1>{{solde}}<sup>DT</sup></h1>
+        </ion-card-content>
+      </ion-card>
+    </ion-col> -->
+    <!-- <ion-col size="6">
+      <ion-card *ngIf="count2 > 0" style="margin: 2%;">
+        <ion-card-content style="background-color: #6777ef !important; color: white;">
+          <h2 style="position: absolute; top: 2%; right: 6%;">{{count2}}</h2>
+          <h3>Chèque</h3>
+          <h1>{{cheque}}<sup>DT</sup></h1>
+        </ion-card-content>
+      </ion-card>
+    </ion-col> -->
+  </ion-row>
+</ion-content>
