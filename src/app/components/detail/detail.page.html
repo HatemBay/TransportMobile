@@ -11,7 +11,7 @@
   <ion-card>
     <ion-item>
       <ion-icon size="large" name="cube" color="primary" slot="start"></ion-icon>
-      <h1>{{package.code_barre}}</h1>
+      <h1>{{package.CAB}}</h1>
     </ion-item>
 
     <ion-card-content>
@@ -25,16 +25,18 @@
       <h1
         style="text-align: center; border: 2px solid #3880ff; border-radius: 25px; margin: 7%; padding: 3%; color: #3880ff; font-weight: bold;">
         {{package.c_remboursement}} <sup>DT</sup></h1>
-      <ion-button size="large" (click)="changeState('livré (espèce)', package.CAB)" shape="round" expand="full">
-        Livré
-        - espèce</ion-button>
-      <ion-button size="large" (click)="changeState('livré (chèque)', package.CAB)" shape="round" expand="full">
-        Colis
-        - chèque</ion-button>
-      <ion-button size="large" (click)="changeState('reporté', package.CAB)" shape="round" expand="full">Reporté
-      </ion-button>
-      <ion-button size="large" (click)="changeState('annulé', package.CAB)" shape="round" expand="full">Annulé
-      </ion-button>
+      <span *ngIf="codeBarre2 === null">
+        <ion-button size="large" (click)="changeState('livré (espèce)', package.CAB)" shape="round" expand="full">
+          Livré
+          - espèce</ion-button>
+        <ion-button size="large" (click)="changeState('livré (chèque)', package.CAB)" shape="round" expand="full">
+          Colis
+          - chèque</ion-button>
+        <ion-button size="large" (click)="changeState('reporté', package.CAB)" shape="round" expand="full">Reporté
+        </ion-button>
+        <ion-button size="large" (click)="changeState('annulé', package.CAB)" shape="round" expand="full">Annulé
+        </ion-button>
+      </span>
     </ion-card-content>
   </ion-card>
 </ion-content>

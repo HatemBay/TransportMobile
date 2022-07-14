@@ -16,6 +16,9 @@ export class HomePage implements OnInit {
   id: string;
   pickupsCount: number;
   roadmapsCount: number;
+  livreCount: number;
+  reporteCount: number;
+  annuleCount: number;
 
   constructor(
     private auth: AuthenticationService,
@@ -52,11 +55,27 @@ export class HomePage implements OnInit {
           console.log('data');
           console.log(data.data);
 
-          this.roadmapsCount = data.data
-            .reduce((acc, curVal) => acc.concat(curVal.packages), [])
-            .map((item) => item._id).length;
+          const allPackages = data.data.reduce(
+            (acc, curVal) => acc.concat(curVal.packages),
+            []
+          );
+          this.roadmapsCount = allPackages.filter(
+            (item) => item.etat === 'en cours'
+          ).length;
+          this.livreCount = allPackages.filter(
+            (item) =>
+              item.etat === 'livré (chèque)' || item.etat === 'livré (espèce)'
+          ).length;
+          this.reporteCount = allPackages.filter(
+            (item) => item.etat === 'reporté'
+          ).length;
+          this.annuleCount = allPackages.filter(
+            (item) => item.etat === 'annulé'
+          ).length;
           console.log('length');
           console.log(this.roadmapsCount);
+          console.log('data');
+          console.log(data.data);
         })
       )
       .toPromise();

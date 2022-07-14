@@ -10,17 +10,22 @@ import { PackageService } from 'src/app/services/package.service';
 })
 export class DetailPage implements OnInit {
   codeBarre = this.route.snapshot.paramMap.get('cab');
+  codeBarre2 = this.route.snapshot.queryParamMap.get('cab') || null;
   package: any = {};
   constructor(
     private route: ActivatedRoute,
     private packageService: PackageService
   ) {
     console.log(this.codeBarre);
+    console.log('cab2 ' + this.codeBarre2);
   }
 
   async ngOnInit() {
-    await this.getPackage(this.codeBarre);
-    console.log(this.package);
+    if (this.codeBarre2 && this.codeBarre2 !== null) {
+      await this.getPackage(this.codeBarre2);
+    } else {
+      await this.getPackage(this.codeBarre);
+    }
   }
 
   async getPackage(cab: string) {

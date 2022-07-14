@@ -47,9 +47,6 @@ export class CollecteDetailPage implements OnInit {
   }
 
   details(id) {
-    console.log('iddd');
-    console.log(id);
-
     const navigationExtras: NavigationExtras = {
       queryParams: {
         pickupId: id,

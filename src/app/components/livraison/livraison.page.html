@@ -12,7 +12,7 @@
   <h3 style="text-align: center;" *ngIf="roadmapsCount === 0"> Pas des colis</h3>
   <h2 style="text-align: center;" *ngIf="roadmapsCount !== 0">Total : {{roadmapsCount}}</h2>
   <ion-card *ngFor="let pack of packages" style="margin-bottom: 7%;">
-    <div *ngIf="pack.etat === 'en cours'" routerLink="/detail/{{pack.CAB}}">
+    <div routerLink="/detail/{{pack.CAB}}">
       <ion-item>
         <ion-icon name="cube" style="color: #fbab1d; margin: 0;" slot="start"></ion-icon>
         <ion-label style="color: #fbab1d; font-size: 22px; text-align: center; margin: 0;"><b>{{pack.CAB}}</b>

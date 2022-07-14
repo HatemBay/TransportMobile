@@ -19,19 +19,19 @@
       <h2 style="text-align: center; font-weight: 900;">Stastiques</h2>
     </ion-col>
     <ion-col size="6">
-      <ion-card routerLink="/tabs/list-colis/1"
+      <ion-card routerLink="/liste-colis/livré"
         style="background-color: #099a0d !important; color: white; text-align: center; margin: 4% 2%; line-height: 63px; height: 93%;">
-        <h3 style="padding-top: 23%;">Livré<br>0</h3>
+        <h3 style="padding-top: 23%;">Livré<br> {{livreCount}} </h3>
       </ion-card>
     </ion-col>
     <ion-col size="6">
-      <ion-card routerLink="/tabs/list-colis/3"
+      <ion-card routerLink="/liste-colis/reporté"
         style="background-color: #8e8e8e !important; color: white; text-align: center; margin: 4% 2%;">
-        <h3>Reporté<br>0</h3>
+        <h3>Reporté<br> {{reporteCount}} </h3>
       </ion-card>
-      <ion-card routerLink="/tabs/list-colis/4"
+      <ion-card routerLink="/liste-colis/annulé"
         style="background-color: #fb501d !important; color: white; text-align: center; margin: 4% 2%;">
-        <h3>Annulé<br>0</h3>
+        <h3>Annulé<br>{{annuleCount}}</h3>
       </ion-card>
     </ion-col>
     <!-- <ion-col size="6">

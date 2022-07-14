@@ -1,9 +1,32 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>liste-colis</ion-title>
+    <ion-title>Liste des colis</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content [fullscreen]="true" color="light" style="height: 93%">
+  <ion-refresher slot="fixed" (ionRefresh)="reload()">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <h3 style="text-align: center;" *ngIf="packagesCount === 0"> Pas des colis</h3>
+  <ion-card *ngFor="let package of packages" style="margin-bottom: 7%;">
+    <div (click)="redirect(package.CAB)">
+      <ion-item>
+        <ion-icon name="cube" style="color: #fbab1d; margin: 0;" slot="start"></ion-icon>
+        <ion-label style="color: #fbab1d; font-size: 22px; text-align: center; margin: 0;"><b>{{package.CAB}}</b>
+        </ion-label>
+      </ion-item>
 
+      <ion-card-content>
+        <h1 style="text-align: center; border: 2px solid #fbab1d; border-radius: 25px; margin-bottom: 4%; padding: 1%;">
+          {{package.c_remboursement}} <sup>DT</sup></h1>
+        <h2><a style="color: #fbab1d; font-size: 20px;" href="tel:{{package.telc}}">
+            <ion-icon name="call-outline"></ion-icon> {{package.telc}}
+          </a></h2>
+        <ion-icon style="color: #fbab1d;" name="location-outline"></ion-icon> {{package.adressec}},
+        {{package.villec}},
+        <span style="color: #fbab1d;"><b>{{package.delegationc}}</b></span>
+      </ion-card-content>
+    </div>
+  </ion-card>
 </ion-content>

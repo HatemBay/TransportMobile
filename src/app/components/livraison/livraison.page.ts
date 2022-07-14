@@ -38,6 +38,7 @@ export class LivraisonPage implements OnInit {
           this.roadmaps = data.data;
           this.packageIds = this.roadmaps
             .reduce((acc, curVal) => acc.concat(curVal.packages), [])
+            .filter((item) => item.etat === 'en cours')
             .map((item) => item._id);
           this.roadmapsCount = this.packageIds.length;
         })

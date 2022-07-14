@@ -87,7 +87,7 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'liste-colis',
+        path: 'liste-colis/:etat',
         loadChildren: () =>
           import('../../components/liste-colis/liste-colis.module').then(
             (m) => m.ListeColisPageModule

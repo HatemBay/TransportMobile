@@ -12,4 +12,8 @@ export class TabsPage {
   logout() {
     this.auth.logout();
   }
+
+  reload() {
+    window.location.reload();
+  }
 }
