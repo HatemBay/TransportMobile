@@ -5,8 +5,6 @@ import {
   TokenPayload,
 } from '../../services/authentication.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RoleGuard } from 'src/app/services/role.guard';
-import { AuthGuard } from 'src/app/services/auth.guard';
 
 @Component({
   selector: 'app-login',
@@ -22,14 +20,22 @@ export class LoginPage implements OnInit {
   loginForm: FormGroup;
   hasError: boolean;
   errorMessage: string;
+  reset = false;
 
   constructor(
     public fb: FormBuilder,
     private auth: AuthenticationService,
     private router: Router,
-    private cdRef: ChangeDetectorRef,
-    private roleGuard: RoleGuard
-  ) {}
+    private route: ActivatedRoute,
+    private cdRef: ChangeDetectorRef
+  ) {
+    this.reset =
+      JSON.parse(this.route.snapshot.queryParamMap.get('passReset')) || false;
+    console.log(this.route.snapshot.url);
+
+    console.log('reset');
+    console.log(this.reset);
+  }
 
   ngOnInit(): void {
     //redirection if user is authenticated
@@ -75,6 +81,10 @@ export class LoginPage implements OnInit {
         this.cdRef.detectChanges();
       }
     );
+  }
+
+  forgotPassword() {
+    this.router.navigate(['/forgot-password']);
   }
 
   // save changes in credentials

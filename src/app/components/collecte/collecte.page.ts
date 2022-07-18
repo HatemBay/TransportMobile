@@ -51,21 +51,26 @@ export class CollectePage implements OnInit {
     //check if we have packages that were not collected or picked
     for (const item of this.packages) {
       console.log(item.etat);
-      if (item.etat !== 'ramassé par livreur' && item.etat !== 'collecté') {
+      if (!(item.etat === 'ramassé par livreur' || item.etat === 'collecté')) {
         isPicked = false;
       }
       if (item.etat !== 'collecté') {
         isCollected = false;
       }
     }
+    console.log(isPicked);
+
     //if all the packages are either collected or picked update pickup state
     if (isCollected === true || isPicked === true) {
+      console.log('dssdqlkqdfslhdqsqfskhlqfslkjfqskgkhu');
+
       this.pickupService
         .updatePickup(this.pickupId, {
           isPicked,
           isCollected,
         })
         .subscribe((data) => {
+          console.log('sdqsdqdsqsdqdsqsd');
           console.log(data);
         });
     }
@@ -145,9 +150,7 @@ export class CollectePage implements OnInit {
       });
   }
 
-
   back() {
     this.navController.back();
   }
-
 }

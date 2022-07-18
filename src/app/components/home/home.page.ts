@@ -75,8 +75,8 @@ export class HomePage implements OnInit {
             (item) =>
               item.etat === 'livré (chèque)' ||
               item.etat === 'livré (espèce)' ||
-              item.etat === 'payé - livré - espèce' ||
-              item.etat === 'payé - livré - chèque'
+              item.etat === 'livré - payé - espèce' ||
+              item.etat === 'livré - payé - chèque'
           ).length;
           this.reporteCount = allPackages.filter(
             (item) => item.etat === 'reporté'
@@ -103,7 +103,7 @@ export class HomePage implements OnInit {
               item.etat === 'en cours de retour' ||
               item.etat === 'retourné' ||
               // eslint-disable-next-line @typescript-eslint/quotes
-              item.etat === "retourné à l'expéditeur"
+              item.etat === "retourné à l'expediteur"
           ).length;
         })
       )
