@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { LoginPage } from './components/login/login.page';
 import { AuthGuard } from './services/auth.guard';
+import { RoleGuard } from './services/role.guard';
 
 const routes: Routes = [
   {
@@ -19,6 +20,10 @@ const routes: Routes = [
   {
     path: '',
     // canActivate: [AuthGuard],
+    canActivate: [RoleGuard],
+    data: {
+      expectedRoles: ['chauffeur'],
+    },
     children: [
       {
         path: '',
@@ -27,10 +32,10 @@ const routes: Routes = [
       },
     ],
   },
-  // {
-  //   path: '**',
-  //   redirectTo: 'home',
-  // },
+  {
+    path: '**',
+    redirectTo: 'home',
+  },
 ];
 @NgModule({
   imports: [

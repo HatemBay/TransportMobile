@@ -1,6 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import { Component, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { PickupService } from 'src/app/services/pickup.service';
 
@@ -15,7 +16,8 @@ export class CollecteDetailPage implements OnInit {
   constructor(
     private auth: AuthenticationService,
     private pickupService: PickupService,
-    private router: Router
+    private router: Router,
+    private navController: NavController
   ) {
     console.log(this.auth.getUserDetails()._id);
   }
@@ -30,10 +32,12 @@ export class CollecteDetailPage implements OnInit {
   getPickups() {
     const isAllocated = 'true';
     const isCollected = 'false';
+    const isPicked = 'false';
     this.pickupService
       .getPickups(
         this.auth.getUserDetails()._id,
         isAllocated,
+        isPicked,
         isCollected,
         'true'
       )
@@ -56,4 +60,10 @@ export class CollecteDetailPage implements OnInit {
 
     this.router.navigate(['/collecte'], navigationExtras);
   }
+
+
+  back() {
+    this.navController.back();
+  }
+
 }

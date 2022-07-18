@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Détail colis</ion-title>
+    <ion-buttons slot="secondary">
+      <ion-tab-button style="padding-left: 10px" (click)="back()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-tab-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="light">
+  <ion-card>
+    <ion-item>
+      <ion-icon size="large" name="cube" color="primary" slot="start"></ion-icon>
+      <h1>{{package.CAB}}</h1>
+    </ion-item>
+
+    <ion-card-content>
+      <h2><b>Téléphone: <a href="tel:{{package.telc}}">{{package.telc}}</a> <span *ngIf="package.tel2c !== 0"> /
+            {{package.tel2c}}</span></b></h2>
+      <h2>Nom & Prénom: {{package.nomc}}</h2>
+      <h2>Ville: {{package.villec}}</h2>
+      <h2>Délegation: {{package.delegationc}}</h2>
+      <h2>Adresse: {{package.adressec}}</h2>
+      <h2 *ngIf="package.remarque !== ''">Remarque: {{package.remarque}}</h2>
+      <h1
+        style="text-align: center; border: 2px solid #3880ff; border-radius: 25px; margin: 7%; padding: 3%; color: #3880ff; font-weight: bold;">
+        {{package.c_remboursement | number: '1.3-3'}} <sup>DT</sup></h1>
+      <span *ngIf="codeBarre2 === null">
+        <span *ngIf="package.etat === 'en cours'">
+          <ion-button size="large" (click)="changeState('livré (espèce)', package.CAB)" shape="round" expand="full">
+            Livré
+            - espèce</ion-button>
+          <ion-button size="large" (click)="changeState('livré (chèque)', package.CAB)" shape="round" expand="full">
+            Livré
+            - chèque</ion-button>
+          <ion-button size="large" (click)="changeState('reporté', package.CAB)" shape="round" expand="full">Reporté
+          </ion-button>
+          <ion-button size="large" (click)="changeState('annulé', package.CAB)" shape="round" expand="full">Annulé
+          </ion-button>
+        </span>
+        <span *ngIf="package.etat === 'en cours de retour'">
+          <ion-button size="large" (click)="changeState('retourné', package.CAB)" shape="round" expand="full">Retourné
+          </ion-button>
+        </span>
+      </span>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

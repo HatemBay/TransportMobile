@@ -1,20 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NavController } from '@ionic/angular';
 import { map } from 'rxjs/operators';
 import { PackageService } from 'src/app/services/package.service';
 
 @Component({
-  selector: 'app-detail',
-  templateUrl: './detail.page.html',
-  styleUrls: ['./detail.page.scss'],
+  selector: 'app-details-roadmap-package',
+  templateUrl: './details-roadmap-package.page.html',
+  styleUrls: ['./details-roadmap-package.page.scss'],
 })
-export class DetailPage implements OnInit {
+export class DetailsRoadmapPackagePage implements OnInit {
   codeBarre = this.route.snapshot.paramMap.get('cab');
-  codeBarre2 = this.route.snapshot.queryParamMap.get('cab') || null;
+  codeBarre2 = this.route.snapshot.queryParamMap.get('cab2') || null;
   package: any = {};
   constructor(
     private route: ActivatedRoute,
-    private packageService: PackageService
+    private packageService: PackageService,
+    private navController: NavController
   ) {
     console.log(this.codeBarre);
     console.log('cab2 ' + this.codeBarre2);
@@ -48,4 +50,10 @@ export class DetailPage implements OnInit {
         this.getPackage(this.codeBarre);
       });
   }
+
+
+  back() {
+    this.navController.back();
+  }
+
 }

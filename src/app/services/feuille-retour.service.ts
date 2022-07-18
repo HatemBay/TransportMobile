@@ -16,65 +16,54 @@ import { AuthenticationService } from './authentication.service';
 @Injectable({
   providedIn: 'root',
 })
-export class PickupService {
-  baseUri = 'http://localhost:3000/api/pickups';
+export class FeuilleRetourService {
+  baseUri = 'http://localhost:3000/api/feuille-retour';
   headers = new HttpHeaders({
     Authorization: `Bearer ${localStorage.getItem('mean-token')!}`,
   }).set('Content-Type', 'application/json');
   constructor(private http: HttpClient, private auth: AuthenticationService) {}
 
-  // Get all pickups with all foreign info
-  getPickups(
+  // Get all return sheets with all foreign info
+  getFeuilleRetours(
     driverId?: any,
-    isAllocated?: any,
-    isPicked?: any,
-    isCollected?: any,
-    noPagination?: any,
+    noLimit?: any,
     limit?: any,
     page?: any,
     sortBy?: any,
-    sort?: any
+    sort?: any,
+    search?: any,
+    startDate?: any,
+    endDate?: any
   ): Observable<any> {
     const url = `${this.baseUri}`;
     var queryParams = new HttpParams();
-    if (isAllocated) {
-      queryParams = queryParams.append('isAllocated', isAllocated);
-    }
-    if (isPicked) {
-      queryParams = queryParams.append('isPicked', isPicked);
-    }
-    if (isCollected) {
-      queryParams = queryParams.append('isCollected', isCollected);
-    }
     queryParams = queryParams.append('limit', limit);
     queryParams = queryParams.append('page', page);
+    if (driverId) {
+      queryParams = queryParams.append('driverId', driverId);
+    }
     if (sortBy) {
       queryParams = queryParams.append('sortBy', sortBy);
     }
     if (sort) {
       queryParams = queryParams.append('sort', sort);
     }
-    if (noPagination) {
-      queryParams = queryParams.append('noPagination', noPagination);
+    if (search) {
+      queryParams = queryParams.append('search', search);
     }
-    if (driverId) {
-      queryParams = queryParams.append('driverId', driverId);
+    if (startDate) {
+      queryParams = queryParams.append('startDate', startDate);
+    }
+    if (endDate) {
+      queryParams = queryParams.append('endDate', endDate);
     }
     return this.http.get(url, { headers: this.headers, params: queryParams }); //if error try removing/adding header
   }
 
-  // Get pickup
-  getPickup(id: any): Observable<any> {
+  // Get return sheet
+  getFeuilleRetour(id: any): Observable<any> {
     const url = `${this.baseUri}/${id}`;
     return this.http.get(url, { headers: this.headers }); //if error try removing/adding header
-  }
-
-  // Update pickup
-  updatePickup(id: any, data: any): Observable<any> {
-    const url = `${this.baseUri}/${id}`;
-    return this.http
-      .put(url, data, { headers: this.headers })
-      .pipe(catchError(this.errorMgmt));
   }
 
   // Error handling

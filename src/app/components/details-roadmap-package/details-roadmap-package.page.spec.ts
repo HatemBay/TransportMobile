@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { DetailPage } from './detail.page';
+import { DetailsRoadmapPackagePage } from './details-roadmap-package.page';
 
-describe('DetailPage', () => {
-  let component: DetailPage;
-  let fixture: ComponentFixture<DetailPage>;
+describe('DetailsRoadmapPackagePage', () => {
+  let component: DetailsRoadmapPackagePage;
+  let fixture: ComponentFixture<DetailsRoadmapPackagePage>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ DetailPage ],
+      declarations: [ DetailsRoadmapPackagePage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(DetailPage);
+    fixture = TestBed.createComponent(DetailsRoadmapPackagePage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

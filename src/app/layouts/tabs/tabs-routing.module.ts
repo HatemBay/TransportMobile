@@ -82,9 +82,9 @@ const routes: Routes = [
       {
         path: 'detail/:cab',
         loadChildren: () =>
-          import('../../components/detail/detail.module').then(
-            (m) => m.DetailPageModule
-          ),
+          import(
+            '../../components/details-roadmap-package/details-roadmap-package.module'
+          ).then((m) => m.DetailsRoadmapPackagePageModule),
       },
       {
         path: 'liste-colis/:etat',

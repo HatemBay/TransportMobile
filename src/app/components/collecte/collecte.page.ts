@@ -6,6 +6,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { PackageService } from 'src/app/services/package.service';
 import { PickupService } from 'src/app/services/pickup.service';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-collecte',
@@ -24,7 +25,8 @@ export class CollectePage implements OnInit {
     private route: ActivatedRoute,
     private pickupService: PickupService,
     private packageService: PackageService,
-    private barcodeScanner: BarcodeScanner
+    private barcodeScanner: BarcodeScanner,
+    private navController: NavController
   ) {
     this.pickupId = this.route.snapshot.queryParamMap.get('pickupId');
     console.log(localStorage.getItem('mean-token'));
@@ -38,23 +40,29 @@ export class CollectePage implements OnInit {
     for await (const pack of this.ids) {
       await this.getPackage(pack);
     }
-    this.checkCollected();
     console.log(this.packages);
+    this.checkPickupState();
     await this.getPickup();
   }
 
-  checkCollected() {
+  checkPickupState() {
     let isCollected = true;
+    let isPicked = true;
+    //check if we have packages that were not collected or picked
     for (const item of this.packages) {
       console.log(item.etat);
-
-      if (item.etat !== 'ramassé par livreur') {
+      if (item.etat !== 'ramassé par livreur' && item.etat !== 'collecté') {
+        isPicked = false;
+      }
+      if (item.etat !== 'collecté') {
         isCollected = false;
       }
     }
-    if (isCollected === true) {
+    //if all the packages are either collected or picked update pickup state
+    if (isCollected === true || isPicked === true) {
       this.pickupService
         .updatePickup(this.pickupId, {
+          isPicked,
           isCollected,
         })
         .subscribe((data) => {
@@ -87,11 +95,22 @@ export class CollectePage implements OnInit {
       )
       .toPromise();
   }
-  updatePackage(codeBarre: any) {
-    console.log(codeBarre);
+  updatePackageToPicked(codeBarre: any) {
     this.packageService
       .updatePackageByCAB(codeBarre, {
         etat: 'ramassé par livreur',
+        userId: this.auth.getUserDetails()._id,
+      })
+      .subscribe(() => {
+        this.ngOnInit();
+      });
+    // this.http.get('http://assets.jouri-express.com/api/set_colis_collecte.php?code_barre='+code_barre+'&id_driver='+this.id).subscribe();
+    // document.getElementById('div_'+code_barre).remove();
+  }
+  updatePackageToCollected(codeBarre: any) {
+    this.packageService
+      .updatePackageByCAB(codeBarre, {
+        etat: 'collecté',
         userId: this.auth.getUserDetails()._id,
       })
       .subscribe(() => {
@@ -125,4 +144,10 @@ export class CollectePage implements OnInit {
         console.log('Error', err);
       });
   }
+
+
+  back() {
+    this.navController.back();
+  }
+
 }

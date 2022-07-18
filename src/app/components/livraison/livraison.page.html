@@ -1,6 +1,11 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Feuille de route</ion-title>
+    <ion-buttons slot="secondary">
+      <ion-tab-button style="padding-left: 10px" (click)="back()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-tab-button>
+    </ion-buttons>
     <!-- <h3 *ngIf="l != 0" slot="end" style="margin-right: 15px;">{{l}}</h3> -->
   </ion-toolbar>
 </ion-header>

@@ -5,6 +5,8 @@ import {
   TokenPayload,
 } from '../../services/authentication.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { RoleGuard } from 'src/app/services/role.guard';
+import { AuthGuard } from 'src/app/services/auth.guard';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +27,8 @@ export class LoginPage implements OnInit {
     public fb: FormBuilder,
     private auth: AuthenticationService,
     private router: Router,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    private roleGuard: RoleGuard
   ) {}
 
   ngOnInit(): void {
@@ -49,21 +52,33 @@ export class LoginPage implements OnInit {
 
     this.auth.login(this.credentials).subscribe(
       () => {
-        console.log('success');
-        this.router.navigate(['/home']);
+        this.router.navigate(['/home']).then(
+          () =>
+            // eslint-disable-next-line @typescript-eslint/quotes
+            (this.errorMessage = "Vous n'êtes pas autorisé dans ce compte")
+        );
       },
       (err) => {
         this.hasError = true;
-        this.errorMessage = err.error;
+        if (err.error.indexOf('to be empty') !== -1) {
+          if (err.error.indexOf('email') !== -1) {
+            this.errorMessage = 'Veuillez insérer votre Email';
+          }
+          if (err.error.indexOf('password') !== -1) {
+            this.errorMessage = 'Veuillez insérer votre mot de passe';
+          }
+        } else if (this.errorMessage.indexOf('must be a valid email') !== -1) {
+          this.errorMessage = 'Email non valide';
+        } else {
+          this.errorMessage = err.error;
+        }
         this.cdRef.detectChanges();
-        console.error(err);
       }
     );
   }
 
   // save changes in credentials
   private onLoginFormValueChange(data: any): void {
-
     this.credentials.email = data.email;
     this.credentials.password = data.password;
   }

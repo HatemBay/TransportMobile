@@ -1,29 +1,30 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>login</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
+<ion-content color="primary" style="text-align: center;">
+  <p style="margin-top: 50%;">BIENVENUE</p>
+  <h1 style="font-weight: 900;">CHAUFFEUR</h1>
   <ion-card>
-    <ion-card-header>
-      Login
-    </ion-card-header>
-    <ion-card-content>
-      <form [formGroup]="loginForm" (ngSubmit)="login()">
+    <!-- <ion-card-header>
+      <h3>Login</h3>
+    </ion-card-header> -->
+    <ion-card-content style="text-align: center;">
+      <form [formGroup]="loginForm" (ngSubmit)="login()" style="text-align: center;">
         <ion-item lines="full">
-          <ion-label position="floating">Tel</ion-label>
+          <ion-label position="floating">Email</ion-label>
           <ion-input formControlName="email" type="text" required></ion-input>
         </ion-item>
 
-        <ion-item lines="full">
+        <ion-item lines="full" class="mb-4">
           <ion-label position="floating">Mot de passe</ion-label>
           <ion-input formControlName="password" type="password" required></ion-input>
         </ion-item>
+
+        <h6 *ngIf="errorMessage" id="alert">
+          {{errorMessage}}
+        </h6>
         <ion-row>
           <ion-col>
-            <ion-button type="submit" color="danger" expand="block"> S'identifier
-            </ion-button>
+            <!-- <ion-button value="Connexion" color="primary" type="submit"> S'identifier
+            </ion-button> -->
+            <input type="submit" value="Connexion" color="primary">
           </ion-col>
         </ion-row>
       </form>
