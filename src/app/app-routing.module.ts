@@ -1,8 +1,7 @@
-import { TabsPage } from './layouts/tabs/tabs.page';
+import { ForgotPasswordPage } from './components/forgot-password/forgot-password.page';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { LoginPage } from './components/login/login.page';
-import { AuthGuard } from './services/auth.guard';
 import { RoleGuard } from './services/role.guard';
 
 const routes: Routes = [
@@ -16,6 +15,14 @@ const routes: Routes = [
     component: LoginPage,
     loadChildren: () =>
       import('./components/login/login.module').then((m) => m.LoginPageModule),
+  },
+  {
+    path: 'forgot-password',
+    component: ForgotPasswordPage,
+    loadChildren: () =>
+      import('./components/forgot-password/forgot-password.module').then(
+        (m) => m.ForgotPasswordPageModule
+      ),
   },
   {
     path: '',

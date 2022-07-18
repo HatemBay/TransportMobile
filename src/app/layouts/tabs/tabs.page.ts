@@ -17,10 +17,6 @@ export class TabsPage {
     this.auth.logout();
   }
 
-  back() {
-    this.navController.back();
-  }
-
   reload() {
     window.location.reload();
   }

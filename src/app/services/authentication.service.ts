@@ -71,6 +71,14 @@ export class AuthenticationService {
     }
   }
 
+  public forgotPasswordUser(data: any): Observable<any> {
+    const url = `http://localhost:3000/api/user/forgotPasswordUser`;
+    return this.http.put(url, data).pipe(
+      // map((res: Response) => {
+      map((res: any) => res || {})
+    );
+  }
+
   public isLoggedIn(): boolean {
     const user = this.getUserDetails();
     if (user && user.role) {
