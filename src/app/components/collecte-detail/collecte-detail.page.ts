@@ -31,14 +31,13 @@ export class CollecteDetailPage implements OnInit {
 
   getPickups() {
     const isAllocated = 'true';
-    const isCollected = 'false';
     const isPicked = 'false';
     this.pickupService
       .getPickups(
         this.auth.getUserDetails()._id,
         isAllocated,
         isPicked,
-        isCollected,
+        null,
         'true'
       )
       .subscribe((data) => {
@@ -61,9 +60,7 @@ export class CollecteDetailPage implements OnInit {
     this.router.navigate(['/collecte'], navigationExtras);
   }
 
-
   back() {
     this.navController.back();
   }
-
 }

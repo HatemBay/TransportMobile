@@ -55,6 +55,19 @@ export class LivraisonPage implements OnInit {
     console.log(this.packages);
   }
 
+  updateRoadmapToFinished(id) {
+    const isFinished = 'true';
+    this.roadmapService
+      .updateRoadmap(id, {
+        isFinished,
+      })
+      .subscribe((data) => {
+        console.log(data);
+      });
+    console.log(id);
+    console.log('finished');
+  }
+
   async getAllPackageIds() {
     this.packageIds = [];
     const isFinished = 'false';
@@ -64,11 +77,26 @@ export class LivraisonPage implements OnInit {
         map((data) => {
           this.roadmaps = data.data;
           const ids = data.data
-            .reduce((acc, curVal) => acc.concat(curVal.packages), [])
-            .filter((item) => item.etat === 'en cours')
+            .reduce((res, roadmap) => {
+              const packages = roadmap.packages.filter(
+                (item) => item.etat === 'en cours'
+              );
+              console.log('reduced and filtered');
+              console.log(packages);
+              //* (note): the code is still not perfect, there can be a very rare case that the admin can make a roadmap before the driver
+              //* goes back to the list and update roadmaps or if the driver directly goes to the home page
+              //* so the best way is to optimise the roadmap directly after package modification by looking for the roadmap that contains it
+              //* and testing if it's finished.
+              //if all packages in a roadmap don't have state 'en cours' then give the roadmap state: 'is finished
+              if (packages.length === 0) {
+                this.updateRoadmapToFinished(roadmap._id);
+              }
+              return res.concat(packages);
+            }, [])
             .map((item) => item._id);
           console.log(typeof this.packageIds);
           console.log(ids);
+          // if (ids.length === 0)
           this.packageIds.push(...ids);
         })
       )
