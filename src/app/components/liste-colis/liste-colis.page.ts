@@ -48,9 +48,8 @@ export class ListeColisPage implements OnInit {
   }
 
   async getPackageIds() {
-    const isFinished = 'false';
     await this.roadmapService
-      .getRoadmaps(this.auth.getUserDetails()._id, isFinished, 'true')
+      .getRoadmaps(this.auth.getUserDetails()._id, null, 'true')
       .pipe(
         map((data) => {
           const packages = data.data.reduce(

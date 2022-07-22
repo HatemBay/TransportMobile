@@ -15,13 +15,13 @@ import { RoadmapService } from 'src/app/services/roadmap.service';
 export class HomePage implements OnInit {
   userData: any;
   id: string;
-  pickupsCount: number;
-  roadmapsCount: number;
-  retourmapsCount: number;
-  livraisonCount: number;
-  livreCount: number;
-  reporteCount: number;
-  annuleCount: number;
+  pickupsCount = 0;
+  roadmapsCount = 0;
+  retourmapsCount = 0;
+  livraisonCount = 0;
+  livreCount = 0;
+  reporteCount = 0;
+  annuleCount = 0;
 
   constructor(
     private auth: AuthenticationService,
@@ -38,6 +38,7 @@ export class HomePage implements OnInit {
   async ngOnInit() {
     await this.countPickups(this.userData._id);
     await this.countLivraison();
+    // await this.countStats();
     this.livraisonCount = this.roadmapsCount + this.retourmapsCount;
   }
 
@@ -53,9 +54,8 @@ export class HomePage implements OnInit {
   }
 
   async countLivraison() {
-    const isFinished = 'false';
     await this.roadmapService
-      .getRoadmaps(this.auth.getUserDetails()._id, isFinished, 'true')
+      .getRoadmaps(this.auth.getUserDetails()._id, null, 'true')
       .pipe(
         map((data) => {
           console.log('data');
@@ -71,14 +71,14 @@ export class HomePage implements OnInit {
           this.roadmapsCount = allPackages.filter(
             (item) => item.etat === 'en cours'
           ).length;
-          this.livreCount = allPackages.filter(
+          this.livreCount += allPackages.filter(
             (item) =>
               item.etat === 'livré (chèque)' ||
               item.etat === 'livré (espèce)' ||
               item.etat === 'livré - payé - espèce' ||
               item.etat === 'livré - payé - chèque'
           ).length;
-          this.reporteCount = allPackages.filter(
+          this.reporteCount += allPackages.filter(
             (item) => item.etat === 'reporté'
           ).length;
           this.annuleCount = allPackages.filter(
@@ -104,6 +104,37 @@ export class HomePage implements OnInit {
               item.etat === 'retourné' ||
               // eslint-disable-next-line @typescript-eslint/quotes
               item.etat === "retourné à l'expediteur"
+          ).length;
+        })
+      )
+      .toPromise();
+  }
+  async countStats() {
+    const isFinished = 'true';
+    await this.roadmapService
+      .getRoadmaps(this.auth.getUserDetails()._id, isFinished, 'true')
+      .pipe(
+        map((data) => {
+          console.log('data');
+          console.log(data.data);
+
+          const allPackages = data.data.reduce(
+            (acc, curVal) => acc.concat(curVal.packages),
+            []
+          );
+
+          this.livreCount += allPackages.filter(
+            (item) =>
+              item.etat === 'livré (chèque)' ||
+              item.etat === 'livré (espèce)' ||
+              item.etat === 'livré - payé - espèce' ||
+              item.etat === 'livré - payé - chèque'
+          ).length;
+          this.reporteCount += allPackages.filter(
+            (item) => item.etat === 'reporté'
+          ).length;
+          this.annuleCount += allPackages.filter(
+            (item) => item.etat === 'annulé'
           ).length;
         })
       )
