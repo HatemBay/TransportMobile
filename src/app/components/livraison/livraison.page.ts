@@ -94,9 +94,8 @@ export class LivraisonPage implements OnInit {
               return res.concat(packages);
             }, [])
             .map((item) => item._id);
-          console.log(typeof this.packageIds);
-          console.log(ids);
-          // if (ids.length === 0)
+          // console.log(typeof this.packageIds);
+          // console.log(ids);
           this.packageIds.push(...ids);
         })
       )
