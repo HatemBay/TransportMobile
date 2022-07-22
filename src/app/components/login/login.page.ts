@@ -18,9 +18,9 @@ export class LoginPage implements OnInit {
   };
   returnUrl: string;
   loginForm: FormGroup;
-  hasError: boolean;
+  hasError = false;
   errorMessage: string;
-  reset = false;
+  reset = 'false';
 
   constructor(
     public fb: FormBuilder,
@@ -29,9 +29,16 @@ export class LoginPage implements OnInit {
     private route: ActivatedRoute,
     private cdRef: ChangeDetectorRef
   ) {
-    this.reset =
-      JSON.parse(this.route.snapshot.queryParamMap.get('passReset')) || false;
-    console.log(this.route.snapshot.url);
+    if (
+      this.route.snapshot.queryParamMap.get('reset') &&
+      this.route.snapshot.queryParamMap.get('reset') !== null
+    ) {
+      console.log('e5dem');
+
+      this.reset = 'true';
+    }
+    console.log('test');
+    console.log(this.route.snapshot.queryParamMap.get('reset'));
 
     console.log('reset');
     console.log(this.reset);

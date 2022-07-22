@@ -55,11 +55,11 @@ export class ForgotPasswordPage implements OnInit {
           } else {
             const navigationExtras: NavigationExtras = {
               queryParams: {
-                passReset: true,
+                reset: 'true',
               },
             };
             console.log(navigationExtras.queryParams);
-            this.router.navigate(['/login'], navigationExtras);
+            this.router.navigate(['login'], navigationExtras);
           }
         }
       );

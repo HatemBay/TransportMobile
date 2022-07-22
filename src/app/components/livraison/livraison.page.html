@@ -26,19 +26,19 @@
   <ion-card *ngFor="let pack of packages" style="margin-bottom: 7%;">
     <div routerLink="/detail/{{pack.CAB}}">
       <ion-item>
-        <ion-icon name="cube" style="color: #fbab1d; margin: 0;" slot="start"></ion-icon>
-        <ion-label style="color: #fbab1d; font-size: 22px; text-align: center; margin: 0;"><b>{{pack.CAB}}</b>
+        <ion-icon name="cube" style="color: #f55f37; margin: 0;" slot="start"></ion-icon>
+        <ion-label style="color: #f55f37; font-size: 22px; text-align: center; margin: 0;"><b>{{pack.CAB}}</b>
         </ion-label>
       </ion-item>
 
       <ion-card-content>
-        <h1 style="text-align: center; border: 2px solid #fbab1d; border-radius: 25px; margin-bottom: 4%; padding: 1%;">
+        <h1 style="text-align: center; border: 2px solid #f55f37; border-radius: 25px; margin-bottom: 4%; padding: 1%;">
           {{pack.c_remboursement | number: '1.3-3'}} <sup>DT</sup></h1>
-        <h2><a style="color: #fbab1d; font-size: 20px;" href="tel:{{pack.telc}}">
+        <h2><a style="color: #f55f37; font-size: 20px;" href="tel:{{pack.telc}}">
             <ion-icon name="call-outline"></ion-icon> {{pack.telc}}
           </a></h2>
-        <ion-icon style="color: #fbab1d;" name="location-outline"></ion-icon> {{pack.adressec}}, {{pack.villec}},
-        <span style="color: #fbab1d;"><b>{{pack.delegationc}}</b></span>
+        <ion-icon style="color: #f55f37;" name="location-outline"></ion-icon> {{pack.adressec}}, {{pack.villec}},
+        <span style="color: #f55f37;"><b>{{pack.delegationc}}</b></span>
       </ion-card-content>
     </div>
   </ion-card>

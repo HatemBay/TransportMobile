@@ -1,14 +1,14 @@
+<!-- eslint-disable @angular-eslint/template/eqeqeq  -->
 <ion-content color="primary" style="text-align: center;">
   <p style="margin-top: 50%;">BIENVENUE</p>
   <h1 style="font-weight: 900;">CHAUFFEUR</h1>
-  <span *ngIf="reset === true">
-    <ion-card id="success">
-      <div class="row justify-content-center">
-        <span class="closebtn" onclick="this.parentElement.style.display='none'; reset = false;">&times;</span>
-        Mot de passe mis à jour, un nouveau mot de passe a été envoyé à votre email
-      </div>
-    </ion-card>
-  </span>
+  <ng-container *ngIf="reset === 'true'">
+    <!-- <p style="color: black;">dsqdsqkdqskljjgsqfiuh</p> -->
+    <div id="success" class="row justify-content-center">
+      <span class="closebtn" onclick="this.parentElement.style.display='none'; reset = 'false';">&times;</span>
+      Mot de passe mis à jour, un nouveau mot de passe a été envoyé à votre email
+    </div>
+  </ng-container>
 
   <ion-card>
     <ion-card-content style="text-align: center;">

@@ -12,7 +12,7 @@
 <ion-content [fullscreen]="true" color="light">
   <ion-card>
     <ion-item>
-      <ion-icon size="large" name="cube" color="primary" slot="start"></ion-icon>
+      <ion-icon size="large" name="cube" color="tertiary" slot="start"></ion-icon>
       <h1>{{package.CAB}}</h1>
     </ion-item>
 
@@ -29,19 +29,24 @@
         {{package.c_remboursement | number: '1.3-3'}} <sup>DT</sup></h1>
       <span *ngIf="codeBarre2 === null">
         <span *ngIf="package.etat === 'en cours'">
-          <ion-button size="large" (click)="changeState('livré (espèce)', package.CAB)" shape="round" expand="full">
+          <ion-button color="tertiary" size="large" (click)="changeState('livré (espèce)', package.CAB)" shape="round"
+            expand="full">
             Livré
             - espèce</ion-button>
-          <ion-button size="large" (click)="changeState('livré (chèque)', package.CAB)" shape="round" expand="full">
+          <ion-button color="tertiary" size="large" (click)="changeState('livré (chèque)', package.CAB)" shape="round"
+            expand="full">
             Livré
             - chèque</ion-button>
-          <ion-button size="large" (click)="changeState('reporté', package.CAB)" shape="round" expand="full">Reporté
+          <ion-button color="tertiary" size="large" (click)="changeState('reporté', package.CAB)" shape="round"
+            expand="full">Reporté
           </ion-button>
-          <ion-button size="large" (click)="changeState('annulé', package.CAB)" shape="round" expand="full">Annulé
+          <ion-button color="tertiary" size="large" (click)="changeState('annulé', package.CAB)" shape="round"
+            expand="full">Annulé
           </ion-button>
         </span>
         <span *ngIf="package.etat === 'en cours de retour'">
-          <ion-button size="large" (click)="changeState('retourné', package.CAB)" shape="round" expand="full">Retourné
+          <ion-button color="tertiary" size="large" (click)="changeState('retourné', package.CAB)" shape="round"
+            expand="full">Retourné
           </ion-button>
         </span>
       </span>

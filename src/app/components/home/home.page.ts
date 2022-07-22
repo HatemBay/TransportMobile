@@ -46,7 +46,7 @@ export class HomePage implements OnInit {
     const isCollected = 'false';
     const isPicked = 'false';
     return this.pickupService
-      .getPickups(id, isAllocated, isPicked, isCollected, 'true')
+      .getPickups(id, isAllocated, isPicked, null, 'true')
       .subscribe((data) => {
         this.pickupsCount = data.length;
       });

@@ -46,28 +46,20 @@ export class CollectePage implements OnInit {
   }
 
   checkPickupState() {
-    let isCollected = true;
     let isPicked = true;
     //check if we have packages that were not collected or picked
     for (const item of this.packages) {
       console.log(item.etat);
-      if (!(item.etat === 'ramassé par livreur' || item.etat === 'collecté')) {
+      if (item.etat !== 'ramassé par livreur') {
         isPicked = false;
-      }
-      if (item.etat !== 'collecté') {
-        isCollected = false;
+        break;
       }
     }
-    console.log(isPicked);
-
     //if all the packages are either collected or picked update pickup state
-    if (isCollected === true || isPicked === true) {
-      console.log('dssdqlkqdfslhdqsqfskhlqfslkjfqskgkhu');
-
+    if (isPicked === true) {
       this.pickupService
         .updatePickup(this.pickupId, {
           isPicked,
-          isCollected,
         })
         .subscribe((data) => {
           console.log('sdqsdqdsqsdqdsqsd');
@@ -112,21 +104,21 @@ export class CollectePage implements OnInit {
     // this.http.get('http://assets.jouri-express.com/api/set_colis_collecte.php?code_barre='+code_barre+'&id_driver='+this.id).subscribe();
     // document.getElementById('div_'+code_barre).remove();
   }
-  updatePackageToCollected(codeBarre: any) {
-    this.packageService
-      .updatePackageByCAB(codeBarre, {
-        etat: 'collecté',
-        userId: this.auth.getUserDetails()._id,
-      })
-      .subscribe(() => {
-        this.ngOnInit();
-      });
-    // this.http.get('http://assets.jouri-express.com/api/set_colis_collecte.php?code_barre='+code_barre+'&id_driver='+this.id).subscribe();
-    // document.getElementById('div_'+code_barre).remove();
-  }
+  // updatePackageToCollected(codeBarre: any) {
+  //   this.packageService
+  //     .updatePackageByCAB(codeBarre, {
+  //       etat: 'collecté',
+  //       userId: this.auth.getUserDetails()._id,
+  //     })
+  //     .subscribe(() => {
+  //       this.ngOnInit();
+  //     });
+  // this.http.get('http://assets.jouri-express.com/api/set_colis_collecte.php?code_barre='+code_barre+'&id_driver='+this.id).subscribe();
+  // document.getElementById('div_'+code_barre).remove();
+  // }
 
   scan() {
-    console.log('slm');
+    console.log('scanning');
     this.data = null;
 
     this.barcodeScanner

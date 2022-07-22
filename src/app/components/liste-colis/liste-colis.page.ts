@@ -31,13 +31,20 @@ export class ListeColisPage implements OnInit {
     console.log(this.etat);
   }
 
-  async ngOnInit() {
-    await this.getPackageIds();
-    this.packages = [];
-    for await (const id of this.packageIds) {
-      await this.getPackage(id);
-    }
-    this.packagesCount = this.packages.length;
+  ngOnInit() {
+    this.reload();
+  }
+
+  async reload() {
+    setTimeout(async () => {
+      await this.getPackageIds();
+      this.packages = [];
+      for await (const id of this.packageIds) {
+        await this.getPackage(id);
+      }
+      this.packagesCount = this.packages.length;
+      console.log('sone');
+    }, 500);
   }
 
   async getPackageIds() {
@@ -99,7 +106,6 @@ export class ListeColisPage implements OnInit {
       )
       .toPromise();
   }
-  reload() {}
 
   redirect(cab) {
     const navigationExtras: NavigationExtras = {
